@@ -5,13 +5,13 @@ class TodoListItem extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={ { textDecoration: this.props.isDone ? 'line-through' : '' } }>
                         { this.props.description }
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={ { textDecoration: this.props.isDone ? 'line-through' : '' } }>
                         { this.props.dueDate.format('DD.MM.YYYY') }
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={ { textDecoration: this.props.isDone ? 'line-through' : '' } }>
                         { this.props.type }
                     </div>
                 </div>

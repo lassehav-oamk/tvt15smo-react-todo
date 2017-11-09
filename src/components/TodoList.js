@@ -5,25 +5,18 @@ import TodoListItem from './TodoListItem';
 import TodoListNewItem from './TodoListNewItem';
 
 class TodoList extends Component {
+
     render () {
 
-        let newListItem = null;
-
-        if(this.props.displayNewItemInput)
-        {
-            newListItem = <TodoListNewItem />;
-        }
+        const { todos, ...rest } = this.props;
 
         return (
             <div>
-                <button className="btn btn-primary">Add new</button>
                 <TodoListHeader />
-                { newListItem }
+                <TodoListNewItem {...rest} />
                 {
-                    this.props.todos.map(todo => <TodoListItem key={ todo.id }
-                                                    dueDate={ todo.dueDate }
-                                                    description={ todo.description }
-                                                    type={ todo.type } />)
+                    todos.map(todo => <TodoListItem key={ todo.id }
+                                                    { ...todo }/>)
                 }
             </div>
         )
