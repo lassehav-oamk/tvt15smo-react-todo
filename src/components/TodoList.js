@@ -8,7 +8,7 @@ class TodoList extends Component {
 
     render () {
 
-        const { todos, ...rest } = this.props;
+        const { todos, toggleItemIsDone, ...rest } = this.props;
 
         return (
             <div>
@@ -16,6 +16,7 @@ class TodoList extends Component {
                 <TodoListNewItem {...rest} />
                 {
                     todos.map(todo => <TodoListItem key={ todo.id }
+                                                    toggleItemIsDone={ toggleItemIsDone }
                                                     { ...todo }/>)
                 }
             </div>
