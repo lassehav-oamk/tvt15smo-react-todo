@@ -3,6 +3,8 @@ import './App.css';
 import TodoList from './components/TodoList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import itemData from './data/itemData';
+import Menu from './components/Menu';
+import TodoGraphs from './components/TodoGraphs';
 
 
 class App extends Component {
@@ -12,6 +14,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      view: "tasks",
       isNewInputVisible: false,
       todoItems: []
     };
@@ -19,6 +22,7 @@ class App extends Component {
     this.toggleInputVisibility = this.toggleInputVisibility.bind(this);
     this.toggleItemIsDone = this.toggleItemIsDone.bind(this);
     this.addNewItem = this.addNewItem.bind(this);
+    this.changeView = this.changeView.bind(this);
   }
 
   componentDidMount()
@@ -50,17 +54,34 @@ class App extends Component {
     })
   }
 
+  changeView(newView)
+  {
+    this.setState({ view: newView });
+  }
+
   render() {
+
+    let view;
+    if(this.state.view === "tasks")
+    {
+      view = (<TodoList
+                displayNewItemInput={ this.state.isNewInputVisible }
+                todos={ this.state.todoItems }
+                toggleInputVisibility={ this.toggleInputVisibility }
+                toggleItemIsDone={ this.toggleItemIsDone }
+                addNewItem={ this.addNewItem }
+              />);
+    }
+    else
+    {
+      view = (<TodoGraphs todos={ this.state.todoItems } />);
+    }
+
     return (
       <div className="App">
         <div className="container">
-          <TodoList
-              displayNewItemInput={ this.state.isNewInputVisible }
-              todos={ this.state.todoItems }
-              toggleInputVisibility={ this.toggleInputVisibility }
-              toggleItemIsDone={ this.toggleItemIsDone }
-              addNewItem={ this.addNewItem }
-          />
+          <Menu activeView={ this.state.view } changeView={ this.changeView } />
+          { view }
         </div>
       </div>
     );
